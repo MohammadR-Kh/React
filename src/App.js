@@ -1,24 +1,26 @@
 import './App.css';
 
 function App() {
+
+  const planets = [
+    { name: "Mars", isGasPlanet: false },
+    { name: "Earth", isGasPlanet: false },
+    { name: "Jupiter", isGasPlanet: true },
+    { name: "Venus", isGasPlanet: false },
+    { name: "Neptune", isGasPlanet: true },
+    { name: "Uranus", isGasPlanet: true },
+  ];
+
   return (
     <div className="App">
-      <Job salary={90000} position="Senior SDE" company="Amazon"/>
-      <Job salary={12000} position="Junior SDE" company="Google"/>
-      <Job salary={10000} position="Project Manager" company="Netflix"/>
+      {
+        planets.map((planet, key) => 
+          !planet.isGasPlanet && <h1 key={key}>{planet.name}</h1>
+        )
+      }
     </div>
   );
 }
 
-
-const Job = (proops) => {
-  return(
-    <div>
-      <h1>{proops.salary}</h1>
-      <h1>{proops.position}</h1>
-      <h1>{proops.company}</h1>
-    </div>
-  )
-}
 
 export default App;
