@@ -1,24 +1,28 @@
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  let [count, setCount] = useState(0);
+ 
+  const increase = () => {
+    setCount(count + 1);
+  }
+  const zero = () => {
+    setCount(count = 0);
+  }
+  const decrease = () => {
+    setCount(count - 1);
+  }
+
   return (
     <div className="App">
-      <Job salary={90000} position="Senior SDE" company="Amazon"/>
-      <Job salary={12000} position="Junior SDE" company="Google"/>
-      <Job salary={10000} position="Project Manager" company="Netflix"/>
+      <button onClick={increase}>Increase</button>
+      <button onClick={zero}>Set Zero</button>
+      <button onClick={decrease}>Decrease</button>
+      <h1>{count}</h1>
     </div>
   );
 }
 
-
-const Job = (proops) => {
-  return(
-    <div>
-      <h1>{proops.salary}</h1>
-      <h1>{proops.position}</h1>
-      <h1>{proops.company}</h1>
-    </div>
-  )
-}
 
 export default App;
