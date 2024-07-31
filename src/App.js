@@ -2,24 +2,54 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  let [count, setCount] = useState(0);
- 
-  const increase = () => {
-    setCount(count + 1);
+  let [todoList, setTodoList] = useState([]);
+  let [newTask, setNewTask] = useState("");
+
+  let handleChanges = (event) => {
+    setNewTask(event.target.value);
   }
-  const zero = () => {
-    setCount(count = 0);
+
+  const addTask = () => {
+    const task = {
+      id: todoList.length === 0 ? 1 : todoList[todoList.length -1].id + 1,
+      taskName: newTask,
+      complited: false,
+    }
+    setTodoList([...todoList, task]);
   }
-  const decrease = () => {
-    setCount(count - 1);
+  const deleteTask = (id) => {
+    setTodoList(todoList.filter((task) => {
+      return task.id !== id;
+    }));
+  }
+  const complite = (id) => {
+    setTodoList(
+      todoList.map((task) => {
+        if(task.id === id){
+          return {...task, complited: true}
+        }
+        else{
+          return task;        
+        }
+      })
+    )
   }
 
   return (
     <div className="App">
-      <button onClick={increase}>Increase</button>
-      <button onClick={zero}>Set Zero</button>
-      <button onClick={decrease}>Decrease</button>
-      <h1>{count}</h1>
+      <div>
+        <input onChange={handleChanges}/>
+        <button onClick={addTask}>Add Task</button>
+      </div>
+      <div>
+        {todoList.map((task) => {
+          return <div style={{backgroundColor: task.complited ? "green" : "whith"}}>
+            <h1>{task.taskName}</h1>
+            <button onClick={() => deleteTask(task.id)}>X</button>
+            <button onClick={() => complite(task.id)}>Complited</button>
+            </div>
+        })}
+      </div>
     </div>
   );
 }
