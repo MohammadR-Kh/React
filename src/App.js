@@ -1,26 +1,24 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import Axios from 'axios';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Home } from './Home';
+import { Menu } from './Menu';
+
 
 function App() {
 
-  const [name, setName] = useState("");
-  const [predictedAge, setPredictedAge] = useState(null);
-
-
-  const fetchData = () => {
-      Axios.get(`https://api.agify.io/?name=${name}`).then((res) => {
-      setPredictedAge(res.data);
-    });
-  }
 
   return (
     <div className="App">
-      <input onChange={(event) => {setName(event.target.value)}}/>
-      <button onClick={fetchData}>Predict Age</button>
-      <h1>Name: {predictedAge?.name} </h1>
-      <h1>predicted age: {predictedAge?.age} </h1>
-      <h1>Count: {predictedAge?.count} </h1>
+      <Router>
+        <div>
+          <Link to="/menu">Menu</Link>
+        </div>
+        <Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='/menu' element={<Menu />}/>
+          <Route path='*' element={<h1>Page not Found</h1>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
